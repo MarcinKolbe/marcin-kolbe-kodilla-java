@@ -1,17 +1,32 @@
 package com.kodilla.testing;
 
+import com.kodilla.testing.user.SimpleUser;
+import com.kodilla.testing.calculator.Calculator;
+
 public class TestingMain {
     public static void main(String[] args) {
-        String txt = "Zadanie dodatkowe: Poszukiwacz samogłosek";
-        String vowels = "aąeęioóuyAĄEĘIOÓUY";
-        StringBuilder newtxt = new StringBuilder();
+        SimpleUser simpleUser = new SimpleUser("theForumUser");
 
-        char[] charArray = txt.toCharArray();
-        for (char c : charArray) {
-            if(vowels.indexOf(c) != -1) {
-                newtxt.append(c);
-            }
+        String result = simpleUser.getUsername();
+        if (result.equals("theForumUser")) {
+            System.out.println("Username test OK");
+        } else {
+            System.out.println("Username Error!");
         }
-        System.out.println(newtxt);
+
+        Calculator calculator = new Calculator(7,2);
+
+        int addResult = calculator.add();
+        int subtractResult = calculator.subtract();
+        if (addResult == 7+2) {
+            System.out.println("Add test OK");
+        } else {
+            System.out.println("Add Error!");
+        }
+        if (subtractResult == 7-2) {
+            System.out.println("Subtract test OK");
+        } else {
+            System.out.println("Subtract Error!");
+        }
     }
 }
