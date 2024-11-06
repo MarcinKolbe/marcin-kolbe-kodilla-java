@@ -18,12 +18,12 @@ public class TestingMain {
 
         int addResult = calculator.add();
         int subtractResult = calculator.subtract();
-        if (addResult == 7+2) {
+        if (addResult == 9) {
             System.out.println("Add test OK");
         } else {
             System.out.println("Add Error!");
         }
-        if (subtractResult == 7-2) {
+        if (subtractResult == 5) {
             System.out.println("Subtract test OK");
         } else {
             System.out.println("Subtract Error!");
