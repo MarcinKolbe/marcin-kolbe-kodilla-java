@@ -40,12 +40,11 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorNormalList() {
         //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
-        List<Integer> numbers = new ArrayList<>();
-        for(int i = 0; i <= 10; i++) numbers.add(i);
+        List<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         //When
         oddNumbersExterminator.exterminate(numbers);
         //Then
-        Assertions.assertEquals(Arrays.asList(0,2,4,6,8,10), numbers);
-        //Assertions.assertArrayEquals(new Integer[]{0, 2, 4, 6, 8, 10}, numbers.toArray());
+        Assertions.assertEquals(Arrays.asList(2,4,6,8,10), numbers);
+        //Assertions.assertArrayEquals(new Integer[]{2, 4, 6, 8, 10}, numbers.toArray());
     }
 }
