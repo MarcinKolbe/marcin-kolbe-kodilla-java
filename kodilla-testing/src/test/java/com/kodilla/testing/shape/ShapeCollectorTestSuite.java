@@ -26,7 +26,7 @@ public class ShapeCollectorTestSuite {
         void addFigure() {
             //Given
             Triangle triangle = new Triangle("trójkąt", 15.20);
-            ShapeCollector shapeCollector = new ShapeCollector(triangle);
+            ShapeCollector shapeCollector = new ShapeCollector();
             //When
             shapeCollector.addFigure(triangle);
             //Then
@@ -36,7 +36,7 @@ public class ShapeCollectorTestSuite {
         void removeFigure() {
             //Given
             Triangle triangle = new Triangle("trójkąt", 15.20);
-            ShapeCollector shapeCollector = new ShapeCollector(triangle);
+            ShapeCollector shapeCollector = new ShapeCollector();
             shapeCollector.addFigure(triangle);
             //When
             boolean result = shapeCollector.removeFigure(triangle);
@@ -54,7 +54,7 @@ public class ShapeCollectorTestSuite {
             Triangle triangle = new Triangle("trójkąt", 15.20);
             Circle circle = new Circle("koło", 7.20);
             Square square = new Square("kwadrat", 10.20);
-            ShapeCollector shapeCollector = new ShapeCollector(triangle);
+            ShapeCollector shapeCollector = new ShapeCollector();
             shapeCollector.addFigure(triangle);
             shapeCollector.addFigure(circle);
             shapeCollector.addFigure(square);
@@ -68,7 +68,7 @@ public class ShapeCollectorTestSuite {
         void getFigure() {
             //Given
             Triangle triangle = new Triangle("trójkąt", 15.20);
-            ShapeCollector shapeCollector = new ShapeCollector(triangle);
+            ShapeCollector shapeCollector = new ShapeCollector();
             shapeCollector.addFigure(triangle);
             //When
             Shape shape = shapeCollector.getFigure(0);
