@@ -17,14 +17,14 @@ public class AdvStatistics {
         commentsCount = statistics.commentsCount();
 
         if (userCount > 0) {
-            avgPostsPerUser = (double) postsCount / userCount;
-            avgCommentsPerUser = (double) commentsCount / userCount;
+            avgPostsPerUser = postsCount / (double) userCount;
+            avgCommentsPerUser = commentsCount / (double) userCount;
         }   else {
             avgPostsPerUser = 0.0;
             avgCommentsPerUser = 0.0;
         }
         if (postsCount > 0) {
-            avgCommentsPerPost = (double) commentsCount / postsCount;
+            avgCommentsPerPost = commentsCount / (double) postsCount;
         }   else {
             avgCommentsPerPost = 0.0;
         }
