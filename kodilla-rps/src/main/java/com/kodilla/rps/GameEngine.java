@@ -4,75 +4,50 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameEngine {
+    private int winsCount;
     private int playerSymbol;
     private String playerSymbolString;
     private int cpuSymbol;
     private boolean end = false;
+    Scanner sc = new Scanner(System.in);
+    Random random = new Random();
     String[] symbole = {"Kamień", "Papier", "Nożyce"};
 
-    public void getStarted(GameParameters gameParameters) {
-        gameParameters.setName();
-        gameParameters.setWinsCount();
-        System.out.println("Witam w grze Kamień, papier, nożyce!");
-        System.out.println("Świetnie " + gameParameters.getName() + " zagramy do " + gameParameters.getWinsCount() + " zwycięstw!");
-        game(gameParameters);
-    }
-
-    public void endGame(GameParameters gameParameters) {
-        System.out.println("Dziękuję za grę " + gameParameters.getName() + "\nDo zobaczenia następnym razem!");
-    }
-
-    public void game(GameParameters gameParameters) {
-        Scanner sc = new Scanner(System.in);
-        Random random = new Random();
+    public void game(User user) {
+        Console console = new Console();
         int playerWins = 0;
         int cpuWins = 0;
-        System.out.println("1 kamień, 2 papier, 3 nożyce, x zakończ grę, n nowa gra");
+        console.availableKeys();
         while (!end) {
-            System.out.println("Twój ruch:");
+            console.yourTurn();
             playerSymbol = getPlayerSymbol(sc);
             if (playerSymbol == 0) {
-                confirmExit(sc, gameParameters);
-                if (end) return;
-                continue;
-            }
-            if (playerSymbol == -1) {
-                confirmNewGame(sc, gameParameters);
-                if (end) return;
+                if (console.confirmExit()) {
+                    console.byebye(user);
+                    return;
+                } else continue;
+            } else if (playerSymbol == -1) {
+                if (console.confirmNewGame()) return;
                 continue;
             }
             cpuSymbol = getCpuSymbol(random);
             System.out.println("Wybrałeś: " + symbole[playerSymbol - 1] + " CPU wybrał: " + symbole[cpuSymbol - 1]);
             int compareResult = symbolComparator(playerSymbol, cpuSymbol);
             if (compareResult == 0) {
-                System.out.println("Remis!\n" + gameParameters.getName() + " " + playerWins + " : " + cpuWins + " CPU");
+                console.draw(user, playerWins, cpuWins);
             } else if (compareResult == 1) {
                 playerWins++;
-                System.out.println("Wygrałeś!\n" + gameParameters.getName() + " " + playerWins + " : " + cpuWins + " CPU");
+                console.playerWin(user, playerWins, cpuWins);
             } else {
                 cpuWins++;
-                System.out.println("Wygrałem!\n" + gameParameters.getName() + " " + playerWins + " : " + cpuWins + " CPU");
+                console.cpuWin(user, playerWins, cpuWins);
             }
-            if ((playerWins == gameParameters.getWinsCount()) || (cpuWins == gameParameters.getWinsCount())) {
-                System.out.println("Koniec gry!\n" + gameParameters.getName() + " " + playerWins + " : " + cpuWins + " CPU");
+            if ((playerWins == winsCount) || (cpuWins == winsCount)) {
+                console.endGame(user, playerWins, cpuWins);
+                console.byebye(user);
                 end = true;
             }
         }
-    }
-    public void confirmExit(Scanner sc, GameParameters gameParameters) {
-        System.out.println("Czy na pewno zakończyć grę? Wćiśnij t aby zakończyć.");
-        String zakoncz = sc.nextLine();
-        if (zakoncz.equalsIgnoreCase("t")) {
-            endGame(gameParameters);
-            end = true;
-        } else System.out.println("Kontynuujemy grę");
-    }
-    public void confirmNewGame(Scanner sc, GameParameters gameParameters){
-        System.out.println("Czy na pewno zakończyć aktualną grę? Wćiśnij t aby zakończyć.");
-        String zakoncz = sc.nextLine();
-        if (zakoncz.equalsIgnoreCase("t")) {
-            getStarted(gameParameters);
-        } else System.out.println("Kontynuujemy grę");
     }
     public int symbolComparator(int playerSymbol, int cpuSymbol) {
         if (playerSymbol == cpuSymbol) {
@@ -95,5 +70,13 @@ public class GameEngine {
     }
     public int getCpuSymbol(Random random) {
         return 1 + random.nextInt(3);
+    }
+    public void setWinsCount() {
+        System.out.println("Do ilu wygranych zagramy?");
+        Scanner sc = new Scanner(System.in);
+        winsCount = sc.nextInt();
+    }
+    public int getWinsCount() {
+        return winsCount;
     }
 }
