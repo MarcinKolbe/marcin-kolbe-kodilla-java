@@ -1,0 +1,38 @@
+create table ISSUESLISTS (
+    ID serial primary key ,
+    NAME varchar(20)
+);
+
+create table ISSUES (
+    ID serial primary key ,
+    ISSUESLIST_ID bigint unsigned not null ,
+    SUMMARY varchar(50) charset utf8,
+    DESCRIPTION varchar(150) charset utf8,
+    USER_ID_ASSIGNEDTO bigint unsigned ,
+    foreign key (ISSUESLIST_ID) references ISSUESLISTS (ID),
+    foreign key (USER_ID_ASSIGNEDTO) references USERS (ID)
+);
+
+insert into ISSUESLISTS (NAME) values
+('ToDo'),
+('In progress'),
+('Done');
+
+insert into ISSUES (ID, ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) VALUES
+(1, 1, 'Przygotowanie raportu', 'Przygotowanie miesięcznego raportu finansowego',1),
+(2, 1, 'Planowanie sprintu', 'Ustalenie celów na kolejny sprint zespołu',2),
+(3, 1, 'Zebranie danych', 'Zebranie informacji do prezentacji na spotkanie zarządu',3),
+(4, 1, 'Przegląd dokumentacji', 'Sprawdzenie poprawności dokumentów projektowych',4),
+(5, 1, 'Analiza wymagań', 'Zidentyfikowanie brakujących wymagań projektowych',5),
+(6, 2, 'Implementacja API', 'Tworzenie endpointów dla modułu użytkowników',1),
+(7, 2, 'Testy funkcjonalne', 'Przeprowadzanie testów funkcjonalnych nowego modułu',2),
+(8, 2, 'Szkolenie pracowników', 'Organizacja warsztatów dla zespołu technicznego',3),
+(9, 2, 'Korekta błędów', 'Rozwiązanie problemów zgłoszonych przez QA',4),
+(10, 2, 'Projektowanie interfejsu', 'Tworzenie prototypu graficznego dla aplikacji',5),
+(11, 3, 'Zakończenie kampanii', 'Podsumowanie wyników kampanii marketingowej',1),
+(12, 3, 'Publikacja artykułu', 'Opublikowanie artykułu na blogu firmowym',2),
+(13, 3, 'Odbiór projektu', 'Finalne zatwierdzenie projektu przez klienta',3),
+(14, 3, 'Aktualizacja systemu', 'Przeprowadzenie aktualizacji do najnowszej wersji',4),
+(15, 3, 'Zamknięcie zgłoszenia', 'Rozwiązanie zgłoszenia technicznego klienta',5);
+
+commit;
