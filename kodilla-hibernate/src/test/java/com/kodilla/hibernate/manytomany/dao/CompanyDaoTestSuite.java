@@ -2,9 +2,12 @@ package com.kodilla.hibernate.manytomany.dao;
 
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -13,6 +16,8 @@ public class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -58,5 +63,25 @@ public class CompanyDaoTestSuite {
         //} catch (Exception e) {
         //    //do nothing
         //}
+    }
+
+    @Test
+    void testRetrieveCompanyNameStartsWith() {
+        //Given
+        //When
+        List<Company> companies = companyDao.retrieveCompanyNameStartsWith("gre");
+
+        //Then
+        Assertions.assertEquals(3, companies.size());
+    }
+
+    @Test
+    void testRetrieveEmployeeNameStartsWith() {
+        //Given
+        //When
+        List<Employee> employees = employeeDao.retrieveEmployeeByLastname("Smith");
+
+        //When
+        Assertions.assertEquals(3, employees.size());
     }
 }

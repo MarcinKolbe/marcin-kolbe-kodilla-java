@@ -36,7 +36,7 @@ public class InvoiceDaoTestSuite {
         int invoiceId = invoice.getId();
 
         //Then
-        Assertions.assertEquals(4, invoiceId);
+        Assertions.assertEquals(5, invoiceId);
 
         //CleanUp
         invoiceDao.delete(invoice);
